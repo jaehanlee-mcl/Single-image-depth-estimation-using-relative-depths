@@ -1,0 +1,9 @@
+pycharm
+anaconda
+python 3.8
+pytorch 1.12.1
+pandas 1.4.3
+matplotlib 3.5.2
+pretrainedmodels 0.7.4
+tensorboardX 2.2
+scipy 1.7.3
