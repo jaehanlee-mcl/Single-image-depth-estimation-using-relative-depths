@@ -1,0 +1,350 @@
+
+1. 모델명: ab_78loss
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='DenseNet161', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=12, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=False, type=bool)
+    parser.add_argument('--weight_adjustment', default=False, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=0, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=0, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=0, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='78loss-same', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='78loss-same', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': True, 'NYUv2_train_reduced10': False,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': False, 'SUNRGB_D_train_reduced02': False,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
+
+2. 모델명: ab_78loss_flat_lambda0
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='DenseNet161', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=12, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=True, type=bool)
+    parser.add_argument('--weight_adjustment', default=True, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=0, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=0, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=0, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='78loss', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='78loss-same', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': True, 'NYUv2_train_reduced10': False,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': False, 'SUNRGB_D_train_reduced02': False,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
+
+3. 모델명: ab_78loss_flat_lambda1
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='DenseNet161', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=12, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=True, type=bool)
+    parser.add_argument('--weight_adjustment', default=True, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=1, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=0, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=1, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='78loss', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='78loss-same', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': True, 'NYUv2_train_reduced10': False,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': False, 'SUNRGB_D_train_reduced02': False,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
+
+4. 모델명: ab_78loss_flat_lambda_down
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='DenseNet161', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=12, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=True, type=bool)
+    parser.add_argument('--weight_adjustment', default=True, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=2, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=-0.5, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=-2, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='78loss', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='78loss-same', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': True, 'NYUv2_train_reduced10': False,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': False, 'SUNRGB_D_train_reduced02': False,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
+
+5. 모델명: ab_78loss_flat_lambda_down_init
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='DenseNet161', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=12, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=True, type=bool)
+    parser.add_argument('--weight_adjustment', default=True, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=2, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=-0.5, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=-2, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='78loss', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='78loss-cluster', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': True, 'NYUv2_train_reduced10': False,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': False, 'SUNRGB_D_train_reduced02': False,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
+
+6. 모델명: ab_13loss_flat_lambda1
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='DenseNet161', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=12, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=True, type=bool)
+    parser.add_argument('--weight_adjustment', default=True, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=1, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=0, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=1, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='13loss', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='13loss-same', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': True, 'NYUv2_train_reduced10': False,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': False, 'SUNRGB_D_train_reduced02': False,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
+
+7. 모델명: ab_5loss_flat_lambda1
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='DenseNet161', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=12, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=True, type=bool)
+    parser.add_argument('--weight_adjustment', default=True, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=1, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=0, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=1, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='5loss', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='5loss-same', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': True, 'NYUv2_train_reduced10': False,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': False, 'SUNRGB_D_train_reduced02': False,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
+
+8. 모델명: ab_1loss
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='DenseNet161', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=12, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=False, type=bool)
+    parser.add_argument('--weight_adjustment', default=False, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=0, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=0, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=0, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='1loss', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='1loss', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': True, 'NYUv2_train_reduced10': False,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': False, 'SUNRGB_D_train_reduced02': False,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
+
+9. 모델명: ab_78loss_flat_lambda_down_sun
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='DenseNet161', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=12, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=True, type=bool)
+    parser.add_argument('--weight_adjustment', default=True, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=2, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=-0.5, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=-2, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='78loss', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='78loss-same', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': False, 'NYUv2_train_reduced10': False,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': True, 'SUNRGB_D_train_reduced02': False,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
+
+10. 모델명: ab_78loss_flat_lambda_down_indoor
+# Arguments
+    parser = argparse.ArgumentParser(description='depth map estimation (CVPR2020 submission)')
+    parser.add_argument('--backbone', default='PNASNet5LargeMin', type=str, help='DenseNet161 (bs12) / PNASNet5LargeMin (bs6)')
+    parser.add_argument('--decoder_scale', default=1024, type=int, help='valid when using PNASNet5LargeMin')
+    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
+    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
+    parser.add_argument('--bs', default=6, type=int, help='batch size')
+    parser.add_argument('--evaluation', default=False, type=bool)
+    parser.add_argument('--num_save', default=4, type=int)
+    parser.add_argument('--weight_flattening', default=True, type=bool)
+    parser.add_argument('--weight_adjustment', default=True, type=bool)
+    parser.add_argument('--num_weight_arrangement', default=4, type=int)
+    parser.add_argument('--lambda_for_adjust_start', default=2, type=float)
+    parser.add_argument('--lambda_for_adjust_slope', default=-0.5, type=float)
+    parser.add_argument('--lambda_for_adjust_min', default=-2, type=float)
+    parser.add_argument('--input_image_size_height', default=288, type=int)
+    parser.add_argument('--input_image_size_width', default=384, type=int)
+    parser.add_argument('--loss_function_space', default='78loss', type=str,
+                        help='78loss / 13loss / 5loss / 1loss / 78loss-same / 13loss-same / 5loss-same')
+    parser.add_argument('--loss_initialize_type', default='78loss-same', type=str,
+                        help='78loss-same / 78loss-cluster / 13loss-same / 13loss-cluster / 5loss-same / 5loss-cluster / 1loss')
+    # all arguments
+    args = parser.parse_args()
+
+    # dataset using
+    train_dataset_use = {'NYUv2_train_reduced01': False, 'NYUv2_train_reduced05': False, 'NYUv2_train_reduced06': False, 'NYUv2_train_reduced10': True,
+                         'NYUv2_train_reduced15': False, 'NYUv2_train_reduced20': False, 'NYUv2_train_reduced30': False,
+                         'SUNRGB_D_train_reduced01': False, 'SUNRGB_D_train_reduced02': True,
+                         'Matterport3D_train_reduced01': False, 'Matterport3D_train_reduced05': False,
+                         'Matterport3D_train_reduced10': False,
+                         'KITTI_Eigen_train_reduced01': False, 'KITTI_Eigen_train_reduced03': False,
+                         'Make3D_train_reduced01': False,
+                         'ReDWeb_V1_train_reduced01': False}
