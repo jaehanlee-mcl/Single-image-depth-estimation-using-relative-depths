@@ -15,8 +15,6 @@ If you use our code or results, please cite:
 }
 ```
 
-https://drive.google.com/file/d/11M53vnKEM_i0Uu-HXy-ksfZLSXPJsvZG/view?usp=sharing
-
 ------
 ### 1. Preparation
 1. Download a [model](https://drive.google.com/file/d/11M53vnKEM_i0Uu-HXy-ksfZLSXPJsvZG/view?usp=sharing) and place them in 'runs\'
